@@ -20,31 +20,55 @@ for file in txt_only:
 	data.append(data_str)
 	current_file.close()
 
-#returns list with values of passed data
-def get_data_str(data_to_get):
+#returns list with values of passed dat
+def get_data_str(data_to_get, before_symb, after_symb_pos):
 	values = []
 	for str in data:
 	    #get value between : and ,
 		position = str.find(data_to_get)
 		size = len(data_to_get)
 		
-		start = position+size+1 #pos after :
-		end = str.find(",",start, len(str)) # pos before ,
-			
-		value = str[start:end]
-		values.append(value)
+		start = position+size+after_symb_pos #pos after :
+		end = str.find(before_symb,start, len(str)) # pos before symbol
 		
+		if is_number(str[start:end]):
+			value = int(str[start:end])
+			values.append(value)		
 	return values
+	
+#True -> number, False -> string
+def is_number(str):
+	numbers = ("0","1","2","3","4","5","6","7","8","9")
+	if str[0] in numbers:
+		return True
+	elif str[0] == " ":
+		if str[1] in numbers:
+			return True
+	else:
+		return False
+	
+def combine_list_elems(your_list):
+	summ = 0
+	for elem in your_list:
+		summ= summ + elem
+	return summ
+	
+turns = get_data_str("Turns",",",1)
+gold = get_data_str("collected"," ",1) # collected x gold
 
-def clear_list(your_list, start,end):
-	new_list = []
-	for str in your_list:
-		str = str[start:end+1]
-		new_list.append(str)
-	your_list.clear()
-	return new_list
-		
-turns = get_data_str("Turns")
-gold = get_data_str("collected") # collected x gold
-gold = clear_list(gold,0,1)
+whole_turns = combine_list_elems(turns)
+max_turns = max(turns)
+min_turns = min(turns)
+
+whole_gold = combine_list_elems(gold)
+max_gold = max(gold)
+min_gold = min(gold)
+
+print("whole turns you made:",whole_turns)
+print("max turns you made:",max_turns)
+print("min turns you made:",min_turns)
+
+print("whole gold you earn",whole_gold)
+print("max gold you earn:",max_gold)
+print("min gold you earn:",min_gold)
 
