@@ -1,6 +1,5 @@
 import os
 
-
 #get path, including hard-ware,(E:/DCSS for example)
 dcss_path = input("enter DCSS path:")
 file_dir = dcss_path+"/morgue/"

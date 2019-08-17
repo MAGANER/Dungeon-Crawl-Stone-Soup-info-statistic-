@@ -80,6 +80,7 @@ def is_null(number):
 		return True
 	else:
 		return False
+		
 def compute_whole_game_time(time):
 	hours = 0
 	minutes = 0
