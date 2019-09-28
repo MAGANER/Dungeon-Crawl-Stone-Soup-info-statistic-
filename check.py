@@ -1,4 +1,5 @@
 import os
+import time as TIME
 
 dcss_path = "E:/DCSS" #my path
 file_dir = dcss_path+"/morgue/"
@@ -135,7 +136,8 @@ def compute_whole_game_time(time):
 	
 	return (final_hours,final_minutes,final_seconds)
 	
-	
+time_before = TIME.time()
+
 turns = get_data_str("Turns",",",1)
 gold = get_data_str("collected"," ",1) # collected x gold
 time = get_raw_data_str("lasted","(",1) # game lasted x time
@@ -150,6 +152,9 @@ whole_gold = combine_list_elems(gold)
 max_gold = max(gold)
 min_gold = min(gold)
 
+time_after = TIME.time()
+computing_time = time_after - time_before
+
 print("whole turns you made:",whole_turns)
 print("max turns you made:",max_turns)
 print("min turns you made:",min_turns)
@@ -158,4 +163,8 @@ print("whole gold you earn",whole_gold)
 print("max gold you earn:",max_gold)
 print("min gold you earn:",min_gold)
 
-print("you played:(h,m,s)",game_time)
+print("you played:(h,m,s) /n",game_time)
+print("statistic computed in ",computing_time," seconds")
+
+
+end = input()# to prevent terminal closing
