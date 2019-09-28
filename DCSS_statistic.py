@@ -164,7 +164,7 @@ print("whole gold you earn",whole_gold)
 print("max gold you earn:",max_gold)
 print("min gold you earn:",min_gold)
 
-print("you played:(h,m,s) /n",game_time)
+print("you played:(h,m,s) ",game_time,"/n")
 print("statistic computed in ",computing_time," seconds")
 
 
