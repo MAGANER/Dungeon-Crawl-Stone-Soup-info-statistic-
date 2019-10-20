@@ -31,7 +31,7 @@ def get_data_str(data_to_get, before_symb, after_symb_pos):
 		start = position+size+after_symb_pos #pos after :
 		end = str.find(before_symb,start, len(str)) # pos before symbol
 		
-		if is_number(str[start:end]):
+		if str[start:end].isdigit():
 			value = int(str[start:end])
 			values.append(value)		
 	return values
@@ -49,16 +49,7 @@ def get_raw_data_str(data_to_get, before_symb, after_symb_pos):
 		values.append(value)		
 	return values	
 	
-#True -> number, False -> string
-def is_number(str):
-	numbers = ("0","1","2","3","4","5","6","7","8","9")
-	if str[0] in numbers:
-		return True
-	elif str[0] == " ":
-		if str[1] in numbers:
-			return True
-	else:
-		return False
+
 	
 def combine_list_elems(your_list):
 	summ = 0
@@ -70,7 +61,7 @@ def combine_list_elems(your_list):
 def clear_shit_outta_time_list(time):
 	new_time = []
 	for elem in time:
-		if is_number(elem[0]):
+		if len(elem) > 0 and elem[0].isdigit():
 			new_time.append(elem)
 	
 	return new_time
@@ -127,8 +118,7 @@ def compute_whole_game_time(time):
 	
 	#compute hours
 	if hours > 0:
-		#my game never lasted more than 59 minutes
-		print("WOW, finish this script!")
+		_hours = _hours + hours
 		
 	final_hours   = _hours
 	final_minutes = _minutes
@@ -144,27 +134,22 @@ time = get_raw_data_str("lasted","(",1) # game lasted x time
 time = clear_shit_outta_time_list(time)
 game_time = compute_whole_game_time(time)
 
-whole_turns = combine_list_elems(turns)
-max_turns = max(turns)
-min_turns = min(turns)
 
-whole_gold = combine_list_elems(gold)
-max_gold = max(gold)
-min_gold = min(gold)
 
 time_after = TIME.time()
 computing_time = time_after - time_before
 
-print("whole turns you made:",whole_turns)
-print("max turns you made:",max_turns)
-print("min turns you made:",min_turns)
 
-print("whole gold you earn",whole_gold)
-print("max gold you earn:",max_gold)
-print("min gold you earn:",min_gold)
-
-print("you played:(h,m,s) ",game_time,"/n")
+print("you played:(h,m,s) ",game_time,"\n")
 print("statistic computed in ",computing_time," seconds")
 
 
-end = input()# to prevent terminal closing
+end = input("show info about(gold)(Yg,Ng)")
+if end == "Yg":
+	whole_gold = combine_list_elems(gold)
+	max_gold = max(gold)
+	min_gold = min(gold)
+	print("whole gold you earn",whole_gold)
+	print("max gold you earn:",max_gold)
+	print("min gold you earn:",min_gold)
+	final = input()# to prevent terminal closing
